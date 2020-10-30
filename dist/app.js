@@ -12,22 +12,7 @@ const searchBar = document
           ui.showMovie(data);
         })
         .catch((err) => console.log(err));
+    } else {
+      ui.clearSearch();
     }
   });
-
-/*
-moviedb.getMovie().then((data) => {
-  console.log(data);
-  const arr = data.movies.Search;
-  console.log(arr);
-});
-*/
-
-/*
-moviedb
-  .getMovie()
-  .then((data) => {
-    ui.showMovie(data);
-  })
-  .catch((err) => console.log(err));
-*/

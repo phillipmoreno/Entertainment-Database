@@ -40,9 +40,21 @@ body {
   margin: 1rem 3rem;
   border: 1px solid #333; }
   .movie-container .movie-item-container .flex-img {
-    height: 230px;
-    width: 175px; }
+    height: 170px;
+    width: 120px; }
   .movie-container .movie-item-container .flex-list {
     list-style: none; }
     .movie-container .movie-item-container .flex-list .movie-title {
       font-size: 2rem; }
+    .movie-container .movie-item-container .flex-list .btn-info {
+      font-size: 1rem;
+      font-family: "Oswald", sans-serif;
+      background: #6386d2;
+      margin: 0.5rem 0;
+      padding: 0.4rem 2rem;
+      color: #fff; }
+
+.movie-container .alert-message {
+  display: block;
+  color: #000;
+  text-align: center; }
