@@ -24,10 +24,25 @@ body {
   justify-content: center;
   align-items: center;
   padding: 1rem; }
-  .search-bar #movie-name {
+  .search-bar #movie-show-title {
     font-size: 0.8rem;
-    padding: 0.5rem;
+    padding: 0.6rem;
     border-radius: 15px;
     width: 50%; }
-    .search-bar #movie-name:focus {
+    .search-bar #movie-show-title:focus {
       outline: none; }
+
+.movie-container .movie-item-container {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+  padding: 1rem;
+  margin: 1rem 3rem;
+  border: 1px solid #333; }
+  .movie-container .movie-item-container .flex-img {
+    height: 230px;
+    width: 175px; }
+  .movie-container .movie-item-container .flex-list {
+    list-style: none; }
+    .movie-container .movie-item-container .flex-list .movie-title {
+      font-size: 2rem; }
