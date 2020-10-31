@@ -19,7 +19,7 @@ class UI {
           <li class = "movie-title">${movie.Title}</li>
           <li>Release Year: ${movie.Year}</li>
           <li>Type: ${movie.Type}</li>
-          <li>IMBD ID: ${movie.imdbID}</li>
+          <li>IMBD ID: <span id="imdb-id">${movie.imdbID}</span></li>
           <li><button class="btn-info">More Info</button></li>
           </ul>
           </div>`;
@@ -31,8 +31,8 @@ class UI {
           <li class = "movie-title">${movie.Title}</li>
           <li>Release Year: ${movie.Year}</li>
           <li>Type: ${movie.Type}</li>
-          <li>IMBD ID: ${movie.imdbID}</li>
-          <li><button class="btn-info" id="info-btn">More Info</button></li>
+          <li>IMBD ID: <span id="imdb-id">${movie.imdbID}</span></li>
+          <li><button class="btn-info">More Info</button></li>
           </ul>
           </div>`;
         }
@@ -49,7 +49,9 @@ class UI {
 
     this.movieContainer.appendChild(alertDiv);
     setTimeout(() => {
-      this.movieContainer.removeChild(alertDiv);
+      if (alertDiv.parentNode == this.movieContainer) {
+        this.movieContainer.removeChild(alertDiv);
+      }
     }, 2800);
   }
 

@@ -17,4 +17,23 @@ class MovieDB {
       movies,
     };
   }
+
+  async getSelected(id) {
+    const headersResponse = await fetch("../config.json");
+    const headers = await headersResponse.json();
+
+    const selectedTitleResponse = await fetch(
+      `https://movie-database-imdb-alternative.p.rapidapi.com/?i=${id}&r=json`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
+
+    const selectedTitle = await selectedTitleResponse.json();
+
+    return {
+      selectedTitle,
+    };
+  }
 }
