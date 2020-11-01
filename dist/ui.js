@@ -10,6 +10,12 @@ class UI {
     } else {
       const movieArr = searchResult.movies.Search;
       let output = "";
+      if (movieArr.length === 1) {
+        output += `<div class ="alert-message"><h1>${movieArr.length} match found</h1></div>`;
+      } else {
+        output += `<div class ="alert-message"><h1>${movieArr.length} matches found</h1></div>`;
+      }
+
       movieArr.forEach((movie) => {
         if (movie.Poster !== "N/A") {
           output += `
@@ -39,6 +45,27 @@ class UI {
       });
       this.movieContainer.innerHTML = output;
     }
+  }
+
+  showSelectedTitle(title) {
+    const movie = title.selectedTitle;
+    const searchBar = document.getElementById("movie-show-title");
+    searchBar.value = movie.Title;
+    console.log(movie);
+    let output = `
+    <div class ="selected-item-container">
+    <h1>${movie.Title} (${movie.Year})</h1>
+    <img src = "${movie.Poster}" alt = "${movie.Title} Poster">
+    <ul class = "info-list">
+    <li>Plot: ${movie.Plot}</li>
+    <li>Starring: ${movie.Actors}</li>
+    <li>Released on: ${movie.Released}</li>
+    <li>Type: ${movie.Type}</li>
+    <li>IMDB Rating: ${movie.imdbRating}</li>
+    <li>IMDB ID: <span id="imdb-id">${movie.imdbID}</span></li>
+    </ul>
+    </div>`;
+    this.movieContainer.innerHTML = output;
   }
 
   showError() {

@@ -48,8 +48,7 @@ body {
     flex-direction: row;
     gap: 5rem;
     padding: 1rem;
-    margin: 1rem 3rem;
-    border: 1px solid #333;
+    border: 0.5px solid #333;
 
     .flex-img {
       height: 170px;
@@ -73,10 +72,10 @@ body {
       }
     }
   }
-
-  .alert-message {
-    display: block;
-    color: #000;
-    text-align: center;
-  }
+}
+.alert-message {
+  display: block;
+  color: #000;
+  text-align: center;
+  padding: 1rem;
 }

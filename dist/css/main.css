@@ -37,8 +37,7 @@ body {
   flex-direction: row;
   gap: 5rem;
   padding: 1rem;
-  margin: 1rem 3rem;
-  border: 1px solid #333; }
+  border: 0.5px solid #333; }
   .movie-container .movie-item-container .flex-img {
     height: 170px;
     width: 120px; }
@@ -54,7 +53,8 @@ body {
       padding: 0.4rem 2rem;
       color: #fff; }
 
-.movie-container .alert-message {
+.alert-message {
   display: block;
   color: #000;
-  text-align: center; }
+  text-align: center;
+  padding: 1rem; }
