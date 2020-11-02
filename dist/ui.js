@@ -48,25 +48,35 @@ class UI {
   }
 
   showSelectedTitle(title) {
-    const movie = title.selectedTitle;
+    const selected = title.selectedTitle;
     const searchBar = document.getElementById("movie-show-title");
-    searchBar.value = movie.Title;
-    console.log(movie);
+    searchBar.value = selected.Title;
+    console.log(selected);
     let output = `
     <div class ="selected-item-container">
-    <h1>${movie.Title} (${movie.Year})</h1>
-    <img src = "${movie.Poster}" alt = "${movie.Title} Poster">
+    <h1>${selected.Title} (${selected.Year})</h1>
+    <img src = "${selected.Poster}" alt = "${selected.Title} Poster">
     <ul class = "info-list">
-    <li>Plot: ${movie.Plot}</li>
-    <li>Starring: ${movie.Actors}</li>
-    <li>Released on: ${movie.Released}</li>
-    <li>Type: ${movie.Type}</li>
-    <li>IMDB Rating: ${movie.imdbRating}</li>
-    <li>IMDB ID: <span id="imdb-id">${movie.imdbID}</span></li>
+    <li>Plot: ${selected.Plot}</li>
+    <li>Starring: ${selected.Actors}</li>
+    <li>Released on: ${selected.Released} (${selected.Country})</li>
+    <li>Type: ${selected.Type}</li>
+    <li>IMDB Rating: ${selected.imdbRating}</li>
+    <li>Runtime: ${selected.Runtime}</li>
+    <li>Total Seasons: ${selected.totalSeasons}</li>
+    <li>Written by: ${selected.Writer}</li>
+    <li>Language: ${selected.Language}</li>
+    <li>IMDB ID: <span id="imdb-id">${selected.imdbID}</span></li>
     </ul>
     </div>`;
     this.movieContainer.innerHTML = output;
   }
+
+  showSelectedMovie() {}
+
+  showSelectedSeries() {}
+
+  showSelectedGame() {}
 
   showError() {
     this.clearAlert();

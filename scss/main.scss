@@ -13,7 +13,7 @@ body {
   align-items: center;
   color: #fff;
   background: red;
-  padding: 1rem 0;
+  padding: 1rem 0rem 0.5rem;
 
   h1 {
     font-size: 2.5rem;
@@ -23,6 +23,38 @@ body {
   i {
     padding-left: 0.5rem;
   }
+
+  .main-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .flex-list {
+      padding: 0.2rem 1rem;
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+
+      li {
+        font-size: 1.2rem;
+        margin-right: 2rem;
+
+        a {
+          text-decoration: none;
+          h4 {
+            transition: all 0.2s ease-in-out;
+            color: #fff;
+            text-decoration: none;
+
+            &:hover {
+              color: gold;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .search-bar {
@@ -31,10 +63,10 @@ body {
   align-items: center;
   padding: 1rem;
   #movie-show-title {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     padding: 0.6rem;
     border-radius: 15px;
-    width: 50%;
+    width: 65%;
 
     &:focus {
       outline: none;
@@ -43,6 +75,8 @@ body {
 }
 
 .movie-container {
+  overflow: auto;
+  height: 100vh;
   .movie-item-container {
     display: flex;
     flex-direction: row;
@@ -78,4 +112,36 @@ body {
   color: #000;
   text-align: center;
   padding: 1rem;
+}
+
+.main-footer {
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  background: red;
+  color: #fff;
+
+  .flex-list {
+    justify-content: center;
+    display: flex;
+    list-style: none;
+
+    li {
+      padding: 0.5rem 0.8rem 1rem;
+
+      i {
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          color: gold;
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}
+
+#about-container {
+  height: 100vh;
 }
