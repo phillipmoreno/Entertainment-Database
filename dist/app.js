@@ -1,5 +1,6 @@
 const moviedb = new MovieDB();
 const ui = new UI();
+var selectedFilter = "All";
 
 const searchBar = document
   .getElementById("movie-show-title")
@@ -29,3 +30,16 @@ const searchBar = document
       ui.clearSearch();
     }
   });
+
+const filterButtons = document.querySelectorAll(".filter-button");
+for (let i = 0; i < filterButtons.length; i++) {
+  filterButtons[i].addEventListener("click", () => {
+    filterButtons[0].classList.remove("clicked");
+    filterButtons[1].classList.remove("clicked");
+    filterButtons[2].classList.remove("clicked");
+    filterButtons[3].classList.remove("clicked");
+    filterButtons[i].classList.add("clicked");
+    selectedFilter = filterButtons[i].firstChild.innerHTML;
+    console.log(selectedFilter);
+  });
+}

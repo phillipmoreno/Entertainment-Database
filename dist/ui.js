@@ -22,8 +22,7 @@ class UI {
           <div class ="movie-item-container">
           <img src = "${movie.Poster}" alt = "${movie.Title} Poster" class = "flex-img">
           <ul class = "flex-list">
-          <li class = "movie-title">${movie.Title}</li>
-          <li>Release Year: ${movie.Year}</li>
+          <li class = "movie-title">${movie.Title} (${movie.Year})</li>
           <li>Type: ${movie.Type}</li>
           <li>IMBD ID: <span id="imdb-id">${movie.imdbID}</span></li>
           <li><button class="btn-info">More Info</button></li>
@@ -34,8 +33,7 @@ class UI {
           <div class ="movie-item-container">
           <img src = "./img/no-img.png" alt = "${movie.Title} Poster" class = "flex-img">
           <ul class = "flex-list">
-          <li class = "movie-title">${movie.Title}</li>
-          <li>Release Year: ${movie.Year}</li>
+          <li class = "movie-title">${movie.Title} (${movie.Year})</li>
           <li>Type: ${movie.Type}</li>
           <li>IMBD ID: <span id="imdb-id">${movie.imdbID}</span></li>
           <li><button class="btn-info">More Info</button></li>
@@ -72,11 +70,23 @@ class UI {
     this.movieContainer.innerHTML = output;
   }
 
-  showSelectedMovie() {}
+  showSelectedMovie() {
+    let output = "";
 
-  showSelectedSeries() {}
+    return output;
+  }
 
-  showSelectedGame() {}
+  showSelectedSeries() {
+    let output = "";
+
+    return output;
+  }
+
+  showSelectedGame() {
+    let output = "";
+
+    return output;
+  }
 
   showError() {
     this.clearAlert();

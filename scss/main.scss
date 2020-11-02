@@ -62,11 +62,31 @@ body {
   justify-content: center;
   align-items: center;
   padding: 1rem;
+
+  .flex-filter {
+    display: flex;
+
+    button {
+      border: 0.3px solid #333;
+      height: 100%;
+      padding: 0.63rem;
+      width: 4rem;
+
+      &:focus {
+        outline: none;
+      }
+    }
+    .clicked {
+      color: #fff;
+      background: #679cd3;
+    }
+  }
   #movie-show-title {
+    border: 0.3px solid #333;
+    height: 100%;
     font-size: 0.9rem;
     padding: 0.6rem;
-    border-radius: 15px;
-    width: 65%;
+    width: 60%;
 
     &:focus {
       outline: none;
@@ -76,7 +96,7 @@ body {
 
 .movie-container {
   overflow: auto;
-  height: 100vh;
+  min-height: 65vh;
   .movie-item-container {
     display: flex;
     flex-direction: row;
@@ -85,8 +105,8 @@ body {
     border: 0.5px solid #333;
 
     .flex-img {
-      height: 170px;
-      width: 120px;
+      height: 150px;
+      width: 110px;
     }
 
     .flex-list {
@@ -99,7 +119,7 @@ body {
       .btn-info {
         font-size: 1rem;
         font-family: "Oswald", sans-serif;
-        background: #6386d2;
+        background: #679cd3;
         margin: 0.5rem 0;
         padding: 0.4rem 2rem;
         color: #fff;
