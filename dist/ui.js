@@ -51,6 +51,7 @@ class UI {
     searchBar.value = selected.Title;
     console.log(selected);
     let output = `
+    <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
     <div class ="selected-item-container">
     <div class="flex-selected-showcase">
     <h1>${selected.Title} (${selected.Year})</h1>

@@ -67,10 +67,12 @@ body {
   .flex-filter {
     display: flex;
 
-    button {
-      border: 0.3px solid #333;
+    .filter-button {
+      border: 1px solid #cccccc;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      font-size: 13px;
       height: 100%;
-      padding: 0.63rem;
+      padding: 0.6rem;
       width: 4rem;
 
       &:focus {
@@ -81,20 +83,48 @@ body {
         background: #679cd3;
         color: #fff;
       }
+
+      &:first-child {
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+      }
+    }
+
+    #All {
+      border-radius: 50%;
     }
     .clicked {
       color: #fff;
       background: #679cd3;
     }
   }
-  #movie-show-title {
-    border: 0.3px solid #333;
-    height: 100%;
-    font-size: 0.9rem;
-    padding: 0.6rem;
-    width: 60%;
 
-    &:focus {
+  .flex-search-bar {
+    display: flex;
+    width: 60%;
+    #movie-show-title {
+      font-size: 13.5px;
+      height: 100%;
+      border: 1px solid #cccccc;
+      border-right: none;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      width: 100%;
+      padding: 0.6rem;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .clear-search-button {
+      border: 1px solid #cccccc;
+      border-left: none;
+      width: 5%;
+      background: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2);
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+      color: #a7a9a9;
       outline: none;
     }
   }
@@ -144,12 +174,27 @@ body {
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     }
   }
+
+  .go-back-button {
+    background: #eceaea;
+    border: none;
+    display: inline-block;
+    margin: 0.5rem 2.2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 .selected-item-container {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   background: #fff;
-  margin: 2rem;
+  margin: 1rem 2rem 2rem;
   padding: 1.5rem;
   display: flex;
   gap: 1.5rem;
@@ -170,6 +215,7 @@ body {
   }
 
   .flex-selected-details {
+    font-size: 1.1rem;
     padding: 3rem 0;
     display: flex;
 

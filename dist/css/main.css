@@ -48,26 +48,48 @@ body {
   padding: 1rem; }
   .search-bar .flex-filter {
     display: flex; }
-    .search-bar .flex-filter button {
-      border: 0.3px solid #333;
+    .search-bar .flex-filter .filter-button {
+      border: 1px solid #cccccc;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      font-size: 13px;
       height: 100%;
-      padding: 0.63rem;
+      padding: 0.6rem;
       width: 4rem; }
-      .search-bar .flex-filter button:focus {
+      .search-bar .flex-filter .filter-button:focus {
         outline: none; }
-      .search-bar .flex-filter button:hover {
+      .search-bar .flex-filter .filter-button:hover {
         background: #679cd3;
         color: #fff; }
+      .search-bar .flex-filter .filter-button:first-child {
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px; }
+    .search-bar .flex-filter #All {
+      border-radius: 50%; }
     .search-bar .flex-filter .clicked {
       color: #fff;
       background: #679cd3; }
-  .search-bar #movie-show-title {
-    border: 0.3px solid #333;
-    height: 100%;
-    font-size: 0.9rem;
-    padding: 0.6rem;
+  .search-bar .flex-search-bar {
+    display: flex;
     width: 60%; }
-    .search-bar #movie-show-title:focus {
+    .search-bar .flex-search-bar #movie-show-title {
+      font-size: 13.5px;
+      height: 100%;
+      border: 1px solid #cccccc;
+      border-right: none;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      width: 100%;
+      padding: 0.6rem; }
+      .search-bar .flex-search-bar #movie-show-title:focus {
+        outline: none; }
+    .search-bar .flex-search-bar .clear-search-button {
+      border: 1px solid #cccccc;
+      border-left: none;
+      width: 5%;
+      background: #fff;
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2);
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+      color: #a7a9a9;
       outline: none; }
 
 .movie-container {
@@ -102,11 +124,22 @@ body {
           color: gold; }
     .movie-container .movie-item-container:hover {
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
+  .movie-container .go-back-button {
+    background: #eceaea;
+    border: none;
+    display: inline-block;
+    margin: 0.5rem 2.2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    outline: none; }
+    .movie-container .go-back-button:hover {
+      transform: scale(1.05); }
 
 .selected-item-container {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   background: #fff;
-  margin: 2rem;
+  margin: 1rem 2rem 2rem;
   padding: 1.5rem;
   display: flex;
   gap: 1.5rem;
@@ -122,6 +155,7 @@ body {
       height: 450px;
       width: 300px; }
   .selected-item-container .flex-selected-details {
+    font-size: 1.1rem;
     padding: 3rem 0;
     display: flex; }
     .selected-item-container .flex-selected-details li {
