@@ -39,6 +39,31 @@ for (let i = 0; i < filterButtons.length; i++) {
     filterButtons[2].classList.remove("clicked");
     filterButtons[3].classList.remove("clicked");
     filterButtons[i].classList.add("clicked");
+    let prevFilter = selectedFilter;
     selectedFilter = filterButtons[i].firstChild.getAttribute("id");
+
+    var filmTitle = document.getElementById("movie-show-title").value;
+
+    if (prevFilter !== selectedFilter && filmTitle !== "") {
+      moviedb
+        .getTitle(selectedFilter, filmTitle)
+        .then((data) => {
+          ui.showMovie(data);
+        })
+        .then(() => {
+          const infoBtns = document.getElementsByClassName("btn-info");
+          for (let i = 0; i < infoBtns.length; i++) {
+            infoBtns[i].addEventListener("click", () => {
+              const parent = infoBtns[i].parentElement.parentElement;
+              const movieId = parent.querySelector("#imdb-id").textContent;
+              moviedb.getSelected(movieId).then((selectedMovie) => {
+                ui.showSelectedTitle(selectedMovie);
+              });
+            });
+          }
+          console.log(infoBtns);
+        })
+        .catch((err) => console.log(err));
+    }
   });
 }
