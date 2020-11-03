@@ -8,7 +8,7 @@ const searchBar = document
     const filmTitle = e.target.value;
     if (filmTitle !== "") {
       moviedb
-        .getMovie(filmTitle)
+        .getTitle(selectedFilter, filmTitle)
         .then((data) => {
           ui.showMovie(data);
         })
@@ -39,7 +39,6 @@ for (let i = 0; i < filterButtons.length; i++) {
     filterButtons[2].classList.remove("clicked");
     filterButtons[3].classList.remove("clicked");
     filterButtons[i].classList.add("clicked");
-    selectedFilter = filterButtons[i].firstChild.innerHTML;
-    console.log(selectedFilter);
+    selectedFilter = filterButtons[i].firstChild.getAttribute("id");
   });
 }

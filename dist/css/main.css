@@ -41,6 +41,7 @@ body {
               transform: scale(1.2); }
 
 .search-bar {
+  background: #eceaea;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +55,9 @@ body {
       width: 4rem; }
       .search-bar .flex-filter button:focus {
         outline: none; }
+      .search-bar .flex-filter button:hover {
+        background: #679cd3;
+        color: #fff; }
     .search-bar .flex-filter .clicked {
       color: #fff;
       background: #679cd3; }
@@ -68,13 +72,17 @@ body {
 
 .movie-container {
   overflow: auto;
-  min-height: 65vh; }
+  min-height: 68vh;
+  background: #eceaea; }
   .movie-container .movie-item-container {
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 0.5rem 2rem;
     display: flex;
     flex-direction: row;
     gap: 5rem;
     padding: 1rem;
-    border: 0.5px solid #333; }
+    transition: 0.3s; }
     .movie-container .movie-item-container .flex-img {
       height: 150px;
       width: 110px; }
@@ -83,12 +91,41 @@ body {
       .movie-container .movie-item-container .flex-list .movie-title {
         font-size: 2rem; }
       .movie-container .movie-item-container .flex-list .btn-info {
+        border: none;
         font-size: 1rem;
         font-family: "Oswald", sans-serif;
         background: #679cd3;
         margin: 0.5rem 0;
         padding: 0.4rem 2rem;
         color: #fff; }
+        .movie-container .movie-item-container .flex-list .btn-info:hover {
+          color: gold; }
+    .movie-container .movie-item-container:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
+
+.selected-item-container {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  background: #fff;
+  margin: 2rem;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start; }
+  .selected-item-container .flex-selected-showcase {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1.5rem; }
+    .selected-item-container .flex-selected-showcase img {
+      margin-top: 0.5rem;
+      border: 1px solid #333;
+      height: 450px;
+      width: 300px; }
+  .selected-item-container .flex-selected-details {
+    padding: 3rem 0;
+    display: flex; }
+    .selected-item-container .flex-selected-details li {
+      list-style: none; }
 
 .alert-message {
   display: block;
@@ -116,4 +153,4 @@ body {
           transform: scale(1.2); }
 
 #about-container {
-  height: 100vh; }
+  height: 80vh; }

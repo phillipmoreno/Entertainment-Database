@@ -52,20 +52,24 @@ class UI {
     console.log(selected);
     let output = `
     <div class ="selected-item-container">
+    <div class="flex-selected-showcase">
     <h1>${selected.Title} (${selected.Year})</h1>
     <img src = "${selected.Poster}" alt = "${selected.Title} Poster">
+    </div>
+    <div class="flex-selected-details">
     <ul class = "info-list">
     <li>Plot: ${selected.Plot}</li>
     <li>Starring: ${selected.Actors}</li>
     <li>Released on: ${selected.Released} (${selected.Country})</li>
     <li>Type: ${selected.Type}</li>
+    <li>Genre: ${selected.Genre}</li>
     <li>IMDB Rating: ${selected.imdbRating}</li>
     <li>Runtime: ${selected.Runtime}</li>
     <li>Total Seasons: ${selected.totalSeasons}</li>
     <li>Written by: ${selected.Writer}</li>
-    <li>Language: ${selected.Language}</li>
     <li>IMDB ID: <span id="imdb-id">${selected.imdbID}</span></li>
     </ul>
+    </div>
     </div>`;
     this.movieContainer.innerHTML = output;
   }
