@@ -47,8 +47,6 @@ class UI {
 
   showSelectedTitle(title) {
     const selected = title.selectedTitle;
-    const searchBar = document.getElementById("movie-show-title");
-    searchBar.value = selected.Title;
     console.log(selected);
     let output = `
     <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
