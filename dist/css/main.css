@@ -119,7 +119,8 @@ body {
         background: #679cd3;
         margin: 0.5rem 0;
         padding: 0.4rem 2rem;
-        color: #fff; }
+        color: #fff;
+        outline: none; }
         .movie-container .movie-item-container .flex-list .btn-info:hover {
           color: gold; }
     .movie-container .movie-item-container:hover {
@@ -160,6 +161,21 @@ body {
     display: flex; }
     .selected-item-container .flex-selected-details li {
       list-style: none; }
+    .selected-item-container .flex-selected-details .add-to-list-button {
+      margin-top: 0.5rem;
+      text-align: center;
+      border: none;
+      background: #679cd3;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.05rem;
+      padding: 0.8rem 0.9rem;
+      outline: none; }
+      .selected-item-container .flex-selected-details .add-to-list-button i {
+        padding-left: 0.5rem;
+        color: red; }
+      .selected-item-container .flex-selected-details .add-to-list-button:hover {
+        color: gold; }
 
 .alert-message {
   display: block;
@@ -185,6 +201,20 @@ body {
         .main-footer .flex-list li i:hover {
           color: gold;
           transform: scale(1.2); }
+
+.favorites-header {
+  background: #eceaea;
+  padding: 1rem;
+  text-align: center;
+  display: block;
+  font-size: 1.2rem; }
+  .favorites-header i {
+    color: red;
+    padding-left: 0.5rem; }
+
+.favorites-container {
+  background: #eceaea;
+  min-height: 80vh; }
 
 #about-container {
   height: 80vh; }

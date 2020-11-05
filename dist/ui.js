@@ -1,6 +1,7 @@
 class UI {
   constructor() {
     this.movieContainer = document.querySelector(".movie-container");
+    this.favoritesContainer = document.querySelector(".favorites-container");
   }
 
   showMovie(searchResult) {
@@ -48,47 +49,104 @@ class UI {
   showSelectedTitle(title) {
     const selected = title.selectedTitle;
     console.log(selected);
-    let output = `
-    <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
-    <div class ="selected-item-container">
-    <div class="flex-selected-showcase">
-    <h1>${selected.Title} (${selected.Year})</h1>
-    <img src = "${selected.Poster}" alt = "${selected.Title} Poster">
-    </div>
-    <div class="flex-selected-details">
-    <ul class = "info-list">
-    <li>Plot: ${selected.Plot}</li>
-    <li>Starring: ${selected.Actors}</li>
-    <li>Released on: ${selected.Released} (${selected.Country})</li>
-    <li>Type: ${selected.Type}</li>
-    <li>Genre: ${selected.Genre}</li>
-    <li>IMDB Rating: ${selected.imdbRating}</li>
-    <li>Runtime: ${selected.Runtime}</li>
-    <li>Total Seasons: ${selected.totalSeasons}</li>
-    <li>Written by: ${selected.Writer}</li>
-    <li>IMDB ID: <span id="imdb-id">${selected.imdbID}</span></li>
-    </ul>
-    </div>
-    </div>`;
+    let output = "";
+    if (selected.Poster !== "N/A") {
+      output += `
+      <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
+      <div class ="selected-item-container">
+      <div class="flex-selected-showcase">
+      <h1>${selected.Title} (${selected.Year})</h1>
+      <img src = "${selected.Poster}" alt = "${selected.Title} Poster">
+      </div>
+      <div class="flex-selected-details">
+      <ul class = "info-list">
+      <li>Plot: ${selected.Plot}</li>
+      <li>Starring: ${selected.Actors}</li>
+      <li>Released on: ${selected.Released} (${selected.Country})</li>
+      <li>Genre: ${selected.Genre}</li>
+      <li>Rated: ${selected.Rated}</li>
+      <li>Type: ${selected.Type}</li>
+      <li>IMDB Rating: ${selected.imdbRating}</li>
+      <li>Runtime: ${selected.Runtime}</li>
+      <li>Total Seasons: ${selected.totalSeasons}</li>
+      <li>Written by: ${selected.Writer}</li>
+      <li>IMDB ID: <span id="imdb-id">${selected.imdbID}</span></li>
+      <button class="add-to-list-button">Add To Favorites<i class="fas fa-heart"></i></button>
+      </ul>
+      </div>
+      </div>`;
+    } else {
+      output += `
+      <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
+      <div class ="selected-item-container">
+      <div class="flex-selected-showcase">
+      <h1>${selected.Title} (${selected.Year})</h1>
+      <img src = "./img/no-img.png" alt = "${selected.Title} Poster">
+      </div>
+      <div class="flex-selected-details">
+      <ul class = "info-list">
+      <li>Plot: ${selected.Plot}</li>
+      <li>Starring: ${selected.Actors}</li>
+      <li>Released on: ${selected.Released} (${selected.Country})</li>
+      <li>Genre: ${selected.Genre}</li>
+      <li>Rated: ${selected.Rated}</li>
+      <li>Type: ${selected.Type}</li>
+      <li>IMDB Rating: ${selected.imdbRating}</li>
+      <li>Runtime: ${selected.Runtime}</li>
+      <li>Total Seasons: ${selected.totalSeasons}</li>
+      <li>Written by: ${selected.Writer}</li>
+      <li>IMDB ID: <span id="imdb-id">${selected.imdbID}</span></li>
+      <button class="add-to-list-button">Add To Favorites<i class="fas fa-heart"></i></button>
+      </ul>
+      </div>
+      </div>`;
+    }
+
     this.movieContainer.innerHTML = output;
+
+    const saveToListBtn = document
+      .querySelector(".add-to-list-button")
+      .addEventListener("click", () => {
+        console.log(selected);
+        let savedTitles;
+        if (localStorage.getItem("savedTitles") === null) {
+          savedTitles = [];
+        } else {
+          savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
+        }
+
+        let unique = true;
+        savedTitles.forEach((listItem) => {
+          if (listItem.imdbID === selected.imdbID) {
+            unique = false;
+          }
+        });
+
+        if (unique === true) {
+          savedTitles.push(selected);
+          localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
+        }
+      });
   }
 
-  showSelectedMovie() {
+  showFavorites() {
+    let savedTitles;
     let output = "";
-
-    return output;
-  }
-
-  showSelectedSeries() {
-    let output = "";
-
-    return output;
-  }
-
-  showSelectedGame() {
-    let output = "";
-
-    return output;
+    if (localStorage.getItem("savedTitles") === null) {
+      output += `<h1> You have no movies saved</h1>`;
+    } else {
+      savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
+      savedTitles.forEach((title) => {
+        output += `
+        <div class="favorite-item-container">
+          <img src="${title.Poster}" alt="${title.Title}">
+          <ul>
+            <li>${title.Title}</li>
+          </ul>
+        </div>`;
+      });
+      this.favoritesContainer.innerHTML = output;
+    }
   }
 
   showError() {
