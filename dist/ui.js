@@ -25,7 +25,7 @@ class UI {
           <ul class = "flex-list">
           <li class = "movie-title">${movie.Title} (${movie.Year})</li>
           <li>Type: ${movie.Type}</li>
-          <li>IMBD ID: <span id="imdb-id">${movie.imdbID}</span></li>
+          <li>Title ID: <span id="imdb-id">${movie.imdbID}</span></li>
           <li><button class="btn-info">More Info</button></li>
           </ul>
           </div>`;
@@ -36,7 +36,7 @@ class UI {
           <ul class = "flex-list">
           <li class = "movie-title">${movie.Title} (${movie.Year})</li>
           <li>Type: ${movie.Type}</li>
-          <li>IMBD ID: <span id="imdb-id">${movie.imdbID}</span></li>
+          <li>Title ID: <span id="imdb-id">${movie.imdbID}</span></li>
           <li><button class="btn-info">More Info</button></li>
           </ul>
           </div>`;
@@ -62,7 +62,7 @@ class UI {
       <ul class = "info-list">
       <li>Plot: ${selected.Plot}</li>
       <li>Starring: ${selected.Actors}</li>
-      <li>Released on: ${selected.Released} (${selected.Country})</li>
+      <li>Release Date: ${selected.Released} (${selected.Country})</li>
       <li>Genre: ${selected.Genre}</li>
       <li>Rated: ${selected.Rated}</li>
       <li>Type: ${selected.Type}</li>
@@ -70,7 +70,7 @@ class UI {
       <li>Runtime: ${selected.Runtime}</li>
       <li>Total Seasons: ${selected.totalSeasons}</li>
       <li>Written by: ${selected.Writer}</li>
-      <li>IMDB ID: <span id="imdb-id">${selected.imdbID}</span></li>
+      <li>Title ID: <span id="imdb-id">${selected.imdbID}</span></li>
       <button class="add-to-list-button">Add To Favorites<i class="fas fa-heart"></i></button>
       </ul>
       </div>
@@ -87,7 +87,7 @@ class UI {
       <ul class = "info-list">
       <li>Plot: ${selected.Plot}</li>
       <li>Starring: ${selected.Actors}</li>
-      <li>Released on: ${selected.Released} (${selected.Country})</li>
+      <li>Release Date: ${selected.Released} (${selected.Country})</li>
       <li>Genre: ${selected.Genre}</li>
       <li>Rated: ${selected.Rated}</li>
       <li>Type: ${selected.Type}</li>
@@ -95,7 +95,7 @@ class UI {
       <li>Runtime: ${selected.Runtime}</li>
       <li>Total Seasons: ${selected.totalSeasons}</li>
       <li>Written by: ${selected.Writer}</li>
-      <li>IMDB ID: <span id="imdb-id">${selected.imdbID}</span></li>
+      <li>Title ID: <span id="imdb-id">${selected.imdbID}</span></li>
       <button class="add-to-list-button">Add To Favorites<i class="fas fa-heart"></i></button>
       </ul>
       </div>
@@ -107,6 +107,9 @@ class UI {
     const saveToListBtn = document
       .querySelector(".add-to-list-button")
       .addEventListener("click", () => {
+        if (document.querySelector(".success-list")) {
+          document.querySelector(".success-list").remove();
+        }
         console.log(selected);
         let savedTitles;
         if (localStorage.getItem("savedTitles") === null) {
@@ -122,30 +125,87 @@ class UI {
           }
         });
 
+        const success = document.createElement("div");
+        const showcase = document.querySelector(".selected-item-container");
+        success.className = "success-list";
         if (unique === true) {
+          success.innerHTML = `
+          <h1>Success! ${selected.Title} Has Been Added To Favorites<i class="fas fa-check"></i></h1>`;
           savedTitles.push(selected);
           localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
+        } else {
+          success.innerHTML = `
+          <h1>${selected.Title} Is Already In Your Favorites<i class="fas fa-info-circle"></i></h1>`;
         }
+
+        this.movieContainer.insertBefore(success, showcase);
+        setTimeout(() => {
+          success.remove();
+        }, 3000);
       });
   }
 
   showFavorites() {
-    let savedTitles;
     let output = "";
     if (localStorage.getItem("savedTitles") === null) {
       output += `<h1> You have no movies saved</h1>`;
+      this.favoritesContainer.innerHTML = output;
     } else {
-      savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
+      let savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
       savedTitles.forEach((title) => {
         output += `
         <div class="favorite-item-container">
-          <img src="${title.Poster}" alt="${title.Title}">
-          <ul>
-            <li>${title.Title}</li>
-          </ul>
+          <div class="flex-showcase"
+            <h3>${title.Title} (${title.Year})</h3>
+            <img src="${title.Poster}" alt="${title.Title}">
+          </div>
+          <div class="flex-details">
+            <ul>
+              <li>Plot: ${title.Plot}</li>
+              <li>Starring: ${title.Actors}</li>
+              <li>Release Date: ${title.Released}</li>
+              <li>Genre: ${title.Genre}</li>
+              <li>Type: ${title.Type}</li>
+              <li>Runtime: ${title.Runtime}</li>
+              <li>Total Seasons: ${title.totalSeasons}</li>
+              <li>IMDB Rating: ${title.imdbRating}</li>
+              <li>Written By: ${title.Writer}</li>
+              <li>IMDB ID: <span class="title-id">${title.imdbID}</span></li>
+            </ul>
+          </div>
+          <div class="remove-container">
+            <button class="remove-favorite-button"><i class="fas fa-trash-alt fa-lg"></i></button>
+          </div>
         </div>`;
       });
       this.favoritesContainer.innerHTML = output;
+      const removeFromFav = document.querySelectorAll(
+        ".remove-favorite-button"
+      );
+      if (removeFromFav !== null) {
+        for (let i = 0; i < removeFromFav.length; i++) {
+          removeFromFav[i].addEventListener("click", () => {
+            let savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
+            const span = removeFromFav[
+              i
+            ].parentElement.parentElement.querySelector(".title-id");
+            const id = span.innerHTML;
+            span.parentElement.parentElement.parentElement.parentElement.remove();
+            for (let x = 0; x < savedTitles.length; x++) {
+              if (savedTitles[x].imdbID === id) {
+                console.log(savedTitles[x].imdbID);
+                savedTitles.splice(x, 1);
+              }
+            }
+            if (savedTitles.length > 0) {
+              localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
+            } else {
+              localStorage.removeItem("savedTitles");
+              this.favoritesContainer.innerHTML = `<h1> You have no movies saved</h1>`;
+            }
+          });
+        }
+      }
     }
   }
 
