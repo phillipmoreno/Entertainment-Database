@@ -276,5 +276,12 @@ body {
         .favorites-container .favorite-item-container .remove-container button:hover {
           color: red; }
 
-#about-container {
-  height: 80vh; }
+.about-container {
+  background: #eceaea;
+  min-height: 80vh;
+  display: block;
+  text-align: center;
+  padding: 1rem 15rem; }
+  .about-container ul li {
+    line-height: 1.8;
+    list-style: none; }

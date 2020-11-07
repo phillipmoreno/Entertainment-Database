@@ -394,6 +394,17 @@ body {
 }
 
 // about.html
-#about-container {
-  height: 80vh;
+.about-container {
+  background: $secondaryColor;
+  min-height: 80vh;
+  display: block;
+  text-align: center;
+  padding: 1rem 15rem;
+
+  ul {
+    li {
+      line-height: 1.8;
+      list-style: none;
+    }
+  }
 }
