@@ -27,6 +27,9 @@ body {
       display: flex;
       flex-direction: row;
       list-style: none; }
+      .main-header .main-nav .flex-list .current-page {
+        color: gold;
+        text-shadow: 1px 1px #000; }
       .main-header .main-nav .flex-list li {
         font-size: 1.2rem;
         margin-right: 2rem; }
@@ -154,6 +157,7 @@ body {
   gap: 1.5rem;
   align-items: flex-start; }
   .selected-item-container .flex-selected-showcase {
+    width: 300px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -216,14 +220,29 @@ body {
   text-align: center;
   display: block;
   font-size: 1.2rem; }
+  .favorites-header h1 {
+    display: inline-block;
+    padding: 0 1rem;
+    border-bottom: 2px solid #000; }
   .favorites-header i {
     color: red;
     padding-left: 0.5rem; }
 
 .favorites-container {
   background: #eceaea;
-  min-height: 80vh;
+  min-height: 70vh;
   padding: 0.1rem; }
+  .favorites-container .num-of-titles {
+    display: block;
+    text-align: center; }
+  .favorites-container .remove-banner {
+    display: block;
+    text-align: center;
+    background: red;
+    color: #fff;
+    padding: 1rem; }
+    .favorites-container .remove-banner i {
+      padding-left: 0.5rem; }
   .favorites-container .favorite-item-container {
     display: flex;
     gap: 2rem;
@@ -238,8 +257,8 @@ body {
       display: flex;
       flex-direction: column; }
       .favorites-container .favorite-item-container .flex-showcase img {
-        height: 260px;
-        width: 190px; }
+        height: 270px;
+        width: 180px; }
     .favorites-container .favorite-item-container .flex-details {
       width: 82%;
       display: flex;

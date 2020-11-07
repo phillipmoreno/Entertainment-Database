@@ -148,15 +148,16 @@ class UI {
   showFavorites() {
     let output = "";
     if (localStorage.getItem("savedTitles") === null) {
-      output += `<h1> You have no movies saved</h1>`;
+      output += `<h1 class="num-of-titles"> You currently have no titles saved</h1>`;
       this.favoritesContainer.innerHTML = output;
     } else {
       let savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
+      output += `<h1 class="num-of-titles"> You Have ${savedTitles.length} Title(s) Saved</h1>`;
       savedTitles.forEach((title) => {
         output += `
         <div class="favorite-item-container">
           <div class="flex-showcase"
-            <h3>${title.Title} (${title.Year})</h3>
+            <h1><span class="title-name">${title.Title}</span> (${title.Year})</h1>
             <img src="${title.Poster}" alt="${title.Title}">
           </div>
           <div class="flex-details">
@@ -186,11 +187,24 @@ class UI {
         for (let i = 0; i < removeFromFav.length; i++) {
           removeFromFav[i].addEventListener("click", () => {
             let savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
-            const span = removeFromFav[
+            const spanID = removeFromFav[
               i
             ].parentElement.parentElement.querySelector(".title-id");
-            const id = span.innerHTML;
-            span.parentElement.parentElement.parentElement.parentElement.remove();
+            const spanTitle = removeFromFav[
+              i
+            ].parentElement.parentElement.querySelector(".title-name");
+            const name = spanTitle.innerHTML;
+            const id = spanID.innerHTML;
+            const removeBanner = document.createElement("div");
+            removeBanner.className = "remove-banner";
+            removeBanner.innerHTML = `<h1> ${name} has been removed<i class="fas fa-info-circle"></i></h1>`;
+            spanID.parentElement.parentElement.parentElement.parentElement.replaceWith(
+              removeBanner
+            );
+
+            setTimeout(() => {
+              removeBanner.remove();
+            }, 2500);
             for (let x = 0; x < savedTitles.length; x++) {
               if (savedTitles[x].imdbID === id) {
                 console.log(savedTitles[x].imdbID);
@@ -199,9 +213,12 @@ class UI {
             }
             if (savedTitles.length > 0) {
               localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
+              this.favoritesContainer.querySelector(
+                ".num-of-titles"
+              ).innerHTML = `You Have ${savedTitles.length} Title(s) Saved`;
             } else {
               localStorage.removeItem("savedTitles");
-              this.favoritesContainer.innerHTML = `<h1> You have no movies saved</h1>`;
+              this.favoritesContainer.innerHTML = `<h1 class="num-of-titles"> You currently have no titles saved</h1>`;
             }
           });
         }
