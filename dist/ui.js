@@ -18,21 +18,14 @@ class UI {
       }
 
       movieArr.forEach((movie) => {
+        output += `
+          <div class ="movie-item-container">`;
         if (movie.Poster !== "N/A") {
-          output += `
-          <div class ="movie-item-container">
-          <img src = "${movie.Poster}" alt = "${movie.Title} Poster" class = "flex-img">
-          <ul class = "flex-list">
-          <li class = "movie-title">${movie.Title} (${movie.Year})</li>
-          <li>Type: ${movie.Type}</li>
-          <li>Title ID: <span id="imdb-id">${movie.imdbID}</span></li>
-          <li><button class="btn-info">More Info</button></li>
-          </ul>
-          </div>`;
+          output += `<img src = "${movie.Poster}" alt = "${movie.Title} Poster" class = "flex-img">`;
         } else {
-          output += `
-          <div class ="movie-item-container">
-          <img src = "./img/no-img.png" alt = "${movie.Title} Poster" class = "flex-img">
+          output += `<img src = "./img/no-img.png" alt = "${movie.Title} Poster" class = "flex-img">`;
+        }
+        output += `
           <ul class = "flex-list">
           <li class = "movie-title">${movie.Title} (${movie.Year})</li>
           <li>Type: ${movie.Type}</li>
@@ -40,7 +33,6 @@ class UI {
           <li><button class="btn-info">More Info</button></li>
           </ul>
           </div>`;
-        }
       });
       this.movieContainer.innerHTML = output;
     }
@@ -50,38 +42,17 @@ class UI {
     const selected = title.selectedTitle;
     console.log(selected);
     let output = "";
+    output += `
+      <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
+      <div class ="selected-item-container">
+      <div class="flex-selected-showcase">
+      <h1>${selected.Title} (${selected.Year})</h1>`;
     if (selected.Poster !== "N/A") {
-      output += `
-      <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
-      <div class ="selected-item-container">
-      <div class="flex-selected-showcase">
-      <h1>${selected.Title} (${selected.Year})</h1>
-      <img src = "${selected.Poster}" alt = "${selected.Title} Poster">
-      </div>
-      <div class="flex-selected-details">
-      <ul class = "info-list">
-      <li>Plot: ${selected.Plot}</li>
-      <li>Starring: ${selected.Actors}</li>
-      <li>Release Date: ${selected.Released} (${selected.Country})</li>
-      <li>Genre: ${selected.Genre}</li>
-      <li>Rated: ${selected.Rated}</li>
-      <li>Type: ${selected.Type}</li>
-      <li>IMDB Rating: ${selected.imdbRating}</li>
-      <li>Runtime: ${selected.Runtime}</li>
-      <li>Total Seasons: ${selected.totalSeasons}</li>
-      <li>Written by: ${selected.Writer}</li>
-      <li>Title ID: <span id="imdb-id">${selected.imdbID}</span></li>
-      <button class="add-to-list-button">Add To Favorites<i class="fas fa-heart"></i></button>
-      </ul>
-      </div>
-      </div>`;
+      output += `<img src = "${selected.Poster}" alt = "${selected.Title} Poster"></img>`;
     } else {
-      output += `
-      <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
-      <div class ="selected-item-container">
-      <div class="flex-selected-showcase">
-      <h1>${selected.Title} (${selected.Year})</h1>
-      <img src = "./img/no-img.png" alt = "${selected.Title} Poster">
+      output += `<img src = "./img/no-img.png" alt = "${selected.Title} Poster">`;
+    }
+    output += `
       </div>
       <div class="flex-selected-details">
       <ul class = "info-list">
@@ -91,18 +62,86 @@ class UI {
       <li>Genre: ${selected.Genre}</li>
       <li>Rated: ${selected.Rated}</li>
       <li>Type: ${selected.Type}</li>
-      <li>IMDB Rating: ${selected.imdbRating}</li>
       <li>Runtime: ${selected.Runtime}</li>
       <li>Total Seasons: ${selected.totalSeasons}</li>
       <li>Written by: ${selected.Writer}</li>
       <li>Title ID: <span id="imdb-id">${selected.imdbID}</span></li>
-      <button class="add-to-list-button">Add To Favorites<i class="fas fa-heart"></i></button>
+      <li>IMDB Rating: ${selected.imdbRating}/10</li>`;
+    if (selected.UserRating) {
+      output += `<li>Your rating:<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></li>`;
+    } else {
+      output += `<li>Your rating: N/A`;
+    }
+    output += `
+      <button class="st-buttons rate-title-button">Rate This Title <i class="fas fa-star"></i></button>
+      <button class="st-buttons add-to-list-button">Add To Favorites <i class="fas fa-heart"></i></button>
       </ul>
       </div>
+      </div>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Rate This Title</h2>
+          <i class="close fas fa-window-close"></i>
+        </div>
+        <div class="modal-body">
+          <div class="modal-rate-system>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+            <i class="far fa-star fa-2x"></i>
+          </div>
+          <h3 class="rating-status">Amazing!</h3>
+        </div>
       </div>`;
-    }
 
     this.movieContainer.innerHTML = output;
+    const modal = document.querySelector(".modal-content");
+    modal.querySelector(".close").addEventListener("click", () => {
+      modal.style.visibility = "hidden";
+    });
+
+    document
+      .querySelector(".rate-title-button")
+      .addEventListener("click", () => {
+        modal.style.visibility = "visible";
+      });
+
+    const rateStatus = modal.querySelector(".rating-status");
+    const rateButtons = modal.querySelectorAll(".fa-star");
+    for (let i = 0; i < rateButtons.length; i++) {
+      rateButtons[i].addEventListener("mouseover", () => {
+        if (i >= 8) {
+          rateStatus.innerHTML = "Amazing!";
+        } else if (i >= 6) {
+          rateStatus.innerHTML = "Good";
+        } else if (i >= 4) {
+          rateStatus.innerHTML = "Alright";
+        } else if (i >= 2) {
+          rateStatus.innerHTML = "Bad";
+        } else {
+          rateStatus.innerHTML = "Horrible";
+        }
+        for (let x = i; x >= 0; x--) {
+          rateButtons[x].classList.add("fas");
+          rateButtons[x].classList.remove("far");
+        }
+      });
+
+      rateButtons[i].addEventListener("mouseleave", () => {
+        for (let x = i; x >= 0; x--) {
+          rateButtons[x].classList.add("far");
+          rateButtons[x].classList.remove("fas");
+        }
+      });
+    }
 
     const saveToListBtn = document
       .querySelector(".add-to-list-button")
@@ -171,7 +210,7 @@ class UI {
               <li>Total Seasons: ${title.totalSeasons}</li>
               <li>IMDB Rating: ${title.imdbRating}</li>
               <li>Written By: ${title.Writer}</li>
-              <li>IMDB ID: <span class="title-id">${title.imdbID}</span></li>
+              <li>Title ID: <span class="title-id">${title.imdbID}</span></li>
             </ul>
           </div>
           <div class="remove-container">

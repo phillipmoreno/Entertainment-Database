@@ -147,6 +147,34 @@ body {
     background: #37be66; }
     .movie-container .success-list i {
       padding-left: 0.5rem; }
+  .movie-container .modal-content {
+    visibility: hidden;
+    background: #fff;
+    padding: 1rem 1.5rem;
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    /* Enable scroll if needed */
+    border: 1px solid #333; }
+    .movie-container .modal-content .modal-header {
+      display: flex;
+      text-align: center;
+      padding-bottom: 0.8rem; }
+      .movie-container .modal-content .modal-header h2 {
+        width: 98%; }
+    .movie-container .modal-content .fa-star {
+      margin: 0;
+      padding: 0;
+      float: left; }
+    .movie-container .modal-content .rating-status {
+      padding: 2.8rem 0 0.8rem;
+      display: block;
+      text-align: center; }
 
 .selected-item-container {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -173,21 +201,26 @@ body {
     display: flex; }
     .selected-item-container .flex-selected-details li {
       list-style: none; }
-    .selected-item-container .flex-selected-details .add-to-list-button {
+    .selected-item-container .flex-selected-details .st-buttons {
+      width: 25%;
+      display: block;
       margin-top: 0.5rem;
       text-align: center;
       border: none;
-      background: #679cd3;
       color: #fff;
       font-weight: bold;
-      font-size: 1.05rem;
+      font-size: 1rem;
       padding: 0.8rem 0.9rem;
       outline: none; }
-      .selected-item-container .flex-selected-details .add-to-list-button i {
-        padding-left: 0.5rem;
-        color: red; }
-      .selected-item-container .flex-selected-details .add-to-list-button:hover {
+      .selected-item-container .flex-selected-details .st-buttons:hover {
         color: gold; }
+      .selected-item-container .flex-selected-details .st-buttons i {
+        color: red;
+        margin-left: 0.3rem; }
+    .selected-item-container .flex-selected-details .rate-title-button {
+      background: mediumseagreen; }
+    .selected-item-container .flex-selected-details .add-to-list-button {
+      background: #679cd3; }
 
 .alert-message {
   display: block;
