@@ -27,7 +27,7 @@ class UI {
         }
         output += `
           <ul class = "flex-list">
-          <li class = "movie-title">${movie.Title} (${movie.Year})</li>
+          <li class = "movie-title"><h2>${movie.Title} (${movie.Year})</h2></li>
           <li>Type: ${movie.Type}</li>
           <li>Title ID: <span id="imdb-id">${movie.imdbID}</span></li>
           <li><button class="btn-info">More Info</button></li>
@@ -45,8 +45,7 @@ class UI {
     output += `
       <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Search Results</button>
       <div class ="selected-item-container">
-      <div class="flex-selected-showcase">
-      <h1>${selected.Title} (${selected.Year})</h1>`;
+      <div class="flex-selected-showcase">`;
     if (selected.Poster !== "N/A") {
       output += `<img src = "${selected.Poster}" alt = "${selected.Title} Poster"></img>`;
     } else {
@@ -56,6 +55,7 @@ class UI {
       </div>
       <div class="flex-selected-details">
       <ul class = "info-list">
+      <h2>${selected.Title} (${selected.Year})</h2>
       <li>Plot: ${selected.Plot}</li>
       <li>Starring: ${selected.Actors}</li>
       <li>Release Date: ${selected.Released} (${selected.Country})</li>
@@ -68,9 +68,9 @@ class UI {
       <li>Title ID: <span id="imdb-id">${selected.imdbID}</span></li>
       <li>IMDB Rating: ${selected.imdbRating}/10</li>`;
     if (selected.UserRating) {
-      output += `<li>Your rating:<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></li>`;
+      output += `<li>Your rating: ${selected.UserRating}</li>`;
     } else {
-      output += `<li>Your rating: N/A`;
+      output += `<li>Your rating: <span class="user-rating-span">N/A</span>`;
     }
     output += `
       <button class="st-buttons rate-title-button">Rate This Title <i class="fas fa-star"></i></button>
@@ -98,14 +98,17 @@ class UI {
             <i class="far fa-star fa-2x"></i>
             <i class="far fa-star fa-2x"></i>
           </div>
-          <h3 class="rating-status">Amazing!</h3>
+          <h3 class="rating-status">Click On Star To Submit Rating</h3>
         </div>
       </div>`;
 
     this.movieContainer.innerHTML = output;
     const modal = document.querySelector(".modal-content");
+    const rateScore = document.querySelector(".user-rating-span");
+    const rateStatus = modal.querySelector(".rating-status");
     modal.querySelector(".close").addEventListener("click", () => {
       modal.style.visibility = "hidden";
+      rateStatus.innerHTML = "Click On Star To Submit Rating";
     });
 
     document
@@ -114,20 +117,19 @@ class UI {
         modal.style.visibility = "visible";
       });
 
-    const rateStatus = modal.querySelector(".rating-status");
     const rateButtons = modal.querySelectorAll(".fa-star");
     for (let i = 0; i < rateButtons.length; i++) {
       rateButtons[i].addEventListener("mouseover", () => {
         if (i >= 8) {
           rateStatus.innerHTML = "Amazing!";
         } else if (i >= 6) {
-          rateStatus.innerHTML = "Good";
+          rateStatus.innerHTML = "Good!";
         } else if (i >= 4) {
           rateStatus.innerHTML = "Alright";
         } else if (i >= 2) {
           rateStatus.innerHTML = "Bad";
         } else {
-          rateStatus.innerHTML = "Horrible";
+          rateStatus.innerHTML = "Horrible!";
         }
         for (let x = i; x >= 0; x--) {
           rateButtons[x].classList.add("fas");
@@ -136,10 +138,20 @@ class UI {
       });
 
       rateButtons[i].addEventListener("mouseleave", () => {
+        rateStatus.innerHTML = "Click On Star To Submit Rating";
         for (let x = i; x >= 0; x--) {
           rateButtons[x].classList.add("far");
           rateButtons[x].classList.remove("fas");
         }
+      });
+
+      rateButtons[i].addEventListener("click", () => {
+        const score = i + 1;
+        rateScore.innerHTML = `${score}/10`;
+        rateStatus.innerHTML = "Click On Star To Submit Rating";
+        selected.UserRating = score;
+        console.log(selected);
+        modal.style.visibility = "hidden";
       });
     }
 
@@ -194,29 +206,24 @@ class UI {
       output += `<h1 class="num-of-titles"> You Have ${savedTitles.length} Title(s) Saved</h1>`;
       savedTitles.forEach((title) => {
         output += `
-        <div class="favorite-item-container">
-          <div class="flex-showcase"
-            <h1><span class="title-name">${title.Title}</span> (${title.Year})</h1>
-            <img src="${title.Poster}" alt="${title.Title}">
-          </div>
-          <div class="flex-details">
-            <ul>
-              <li>Plot: ${title.Plot}</li>
-              <li>Starring: ${title.Actors}</li>
-              <li>Release Date: ${title.Released}</li>
-              <li>Genre: ${title.Genre}</li>
-              <li>Type: ${title.Type}</li>
-              <li>Runtime: ${title.Runtime}</li>
-              <li>Total Seasons: ${title.totalSeasons}</li>
-              <li>IMDB Rating: ${title.imdbRating}</li>
-              <li>Written By: ${title.Writer}</li>
-              <li>Title ID: <span class="title-id">${title.imdbID}</span></li>
-            </ul>
-          </div>
-          <div class="remove-container">
-            <button class="remove-favorite-button"><i class="fas fa-trash-alt fa-lg"></i></button>
-          </div>
-        </div>`;
+      <div class="favorite-item-container">
+        <div class="flex-showcase">
+          <img src="${title.Poster}" alt="${title.Title}">
+        </div>
+        <div class="flex-details">
+          <ul>
+          <h3><span class="title-name">${title.Title}</span> (${title.Year})</h3>
+            <li>Starring: ${title.Actors}</li>
+            <li>Genre: ${title.Genre}</li>
+            <li>IMDB Rating: ${title.imdbRating}</li>
+            <li class ="title-list-item">Title ID: <span class="title-id">${title.imdbID}</span></li>
+            <li><button class="btn-info">More Info</button></li>
+          </ul>
+        </div>
+        <div class="remove-container">
+          <button class="remove-favorite-button"><i class="fas fa-trash-alt fa-lg"></i></button>
+        </div>
+      </div>`;
       });
       this.favoritesContainer.innerHTML = output;
       const removeFromFav = document.querySelectorAll(
@@ -262,9 +269,145 @@ class UI {
           });
         }
       }
+
+      const moreInfoButton = document.querySelectorAll(".btn-info");
+      if (moreInfoButton) {
+        for (let i = 0; i < moreInfoButton.length; i++) {
+          const span = moreInfoButton[i].parentElement.parentElement;
+          const id = span.querySelector(".title-id").innerHTML;
+          moreInfoButton[i].addEventListener("click", () => {
+            this.showSelectedFavorite(id);
+            console.log("Cicked ", i);
+          });
+        }
+      }
     }
   }
 
+  showSelectedFavorite(id) {
+    let savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
+    savedTitles.forEach((title) => {
+      if (title.imdbID === id) {
+        console.log(title);
+        let output = `
+          <button class="go-back-button"><i class="fas fa-arrow-left"></i> Return To Favorites</button>
+          <div class ="selected-item-container">
+          <div class="flex-selected-showcase">`;
+        if (title.Poster !== "N/A") {
+          output += `<img src = "${title.Poster}" alt = "${title.Title} Poster"></img>`;
+        } else {
+          output += `<img src = "./img/no-img.png" alt = "${title.Title} Poster">`;
+        }
+        output += `
+          </div>
+          <div class="flex-selected-details">
+          <ul class = "info-list">
+          <h2>${title.Title} (${title.Year})</h2>
+          <li>Plot: ${title.Plot}</li>
+          <li>Starring: ${title.Actors}</li>
+          <li>Release Date: ${title.Released} (${title.Country})</li>
+          <li>Genre: ${title.Genre}</li>
+          <li>Rated: ${title.Rated}</li>
+          <li>Type: ${title.Type}</li>
+          <li>Runtime: ${title.Runtime}</li>
+          <li>Total Seasons: ${title.totalSeasons}</li>
+          <li>Written by: ${title.Writer}</li>
+          <li>Title ID: <span id="imdb-id">${title.imdbID}</span></li>
+          <li>IMDB Rating: ${title.imdbRating}/10</li>`;
+        if (title.UserRating) {
+          output += `<li>Your rating: <span class ="user-rating-span">${title.UserRating}/10</span></li>`;
+        } else {
+          output += `<li>Your rating: <span class="user-rating-span">N/A</span>`;
+        }
+        output += `
+          <button class="st-buttons rate-title-button">Rate This Title <i class="fas fa-star"></i></button>
+          </ul>
+          </div>
+          </div>
+          
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2>Rate This Title</h2>
+              <i class="close fas fa-window-close"></i>
+            </div>
+            <div class="modal-body">
+              <div class="modal-rate-system>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+                <i class="far fa-star fa-2x"></i>
+              </div>
+              <h3 class="rating-status">Click On Star To Submit Rating</h3>
+            </div>
+          </div>`;
+        this.favoritesContainer.innerHTML = output;
+        const modal = document.querySelector(".modal-content");
+        const rateScore = document.querySelector(".user-rating-span");
+        const rateStatus = modal.querySelector(".rating-status");
+        modal.querySelector(".close").addEventListener("click", () => {
+          modal.style.visibility = "hidden";
+          rateStatus.innerHTML = "Click On Star To Submit Rating";
+        });
+
+        document
+          .querySelector(".go-back-button")
+          .addEventListener("click", () => {
+            location.reload();
+          });
+        document
+          .querySelector(".rate-title-button")
+          .addEventListener("click", () => {
+            modal.style.visibility = "visible";
+          });
+
+        const rateButtons = modal.querySelectorAll(".fa-star");
+        for (let i = 0; i < rateButtons.length; i++) {
+          rateButtons[i].addEventListener("mouseover", () => {
+            if (i >= 8) {
+              rateStatus.innerHTML = "Amazing!";
+            } else if (i >= 6) {
+              rateStatus.innerHTML = "Good!";
+            } else if (i >= 4) {
+              rateStatus.innerHTML = "Alright";
+            } else if (i >= 2) {
+              rateStatus.innerHTML = "Bad";
+            } else {
+              rateStatus.innerHTML = "Horrible!";
+            }
+            for (let x = i; x >= 0; x--) {
+              rateButtons[x].classList.add("fas");
+              rateButtons[x].classList.remove("far");
+            }
+          });
+
+          rateButtons[i].addEventListener("mouseleave", () => {
+            rateStatus.innerHTML = "Click On Star To Submit Rating";
+            for (let x = i; x >= 0; x--) {
+              rateButtons[x].classList.add("far");
+              rateButtons[x].classList.remove("fas");
+            }
+          });
+
+          rateButtons[i].addEventListener("click", () => {
+            const score = i + 1;
+            rateScore.innerHTML = `${score}/10`;
+            rateStatus.innerHTML = "Click On Star To Submit Rating";
+            title.UserRating = score;
+            localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
+            console.log(title);
+            modal.style.visibility = "hidden";
+          });
+        }
+      }
+    });
+  }
   showError() {
     this.clearAlert();
     const alertDiv = document.createElement("div");

@@ -67,4 +67,23 @@ class MovieDB {
       selectedTitle,
     };
   }
+
+  async updateRating(id, rating) {
+    const headersResponse = await fetch("../config.json");
+    const headers = await headersResponse.json();
+
+    const selectedTitleResponse = await fetch(
+      `https://movie-database-imdb-alternative.p.rapidapi.com/?i=${id}&r=json`,
+      {
+        method: "PUT",
+        headers: headers,
+      }
+    );
+
+    const selectedTitle = await selectedTitleResponse.json();
+
+    return {
+      selectedTitle,
+    };
+  }
 }
