@@ -29,6 +29,7 @@ Entertainment Database is a web application that was built using JavaScript, HTM
 7.  Alert banners for adding/removing titles to favorites.
 8.  Counter used and displayed in search results and favorites list.
     (Updates in real time)
+9.  Personal Rating System using Local Storage.
 
 ## Author
 
